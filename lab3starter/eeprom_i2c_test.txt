@@ -1,0 +1,65 @@
+  //*********************Testing I2C EEPROM------------------
+
+	//the following variables are for testging I2C_EEPROM
+	
+	uint8_t data1 = 0x80,  data2=0x81;
+	uint8_t readData=0x00;
+	
+	EE_status=I2C_ByteWrite(&hi2c1,EEPROM_ADDRESS, memLocation, data1);
+
+  if(EE_status != HAL_OK)
+  {
+    I2C_Error(&hi2c1);
+  }
+	
+	BSP_LCD_GLASS_Clear();
+	if (EE_status==HAL_OK) {
+			BSP_LCD_GLASS_DisplayString((uint8_t*)"w 1 ok");
+	}else
+			BSP_LCD_GLASS_DisplayString((uint8_t*)"w 1 X");
+
+	HAL_Delay(1000);
+	
+	EE_status=I2C_ByteWrite(&hi2c1,EEPROM_ADDRESS, memLocation+1 , data2);////////////////////////////////
+	
+  if(EE_status != HAL_OK)
+  {
+    I2C_Error(&hi2c1);
+  }
+	
+	BSP_LCD_GLASS_Clear();
+	if (EE_status==HAL_OK) {
+			BSP_LCD_GLASS_DisplayString((uint8_t*)"w 2 ok");
+	}else
+			BSP_LCD_GLASS_DisplayString((uint8_t*)"w 2 X");
+
+	HAL_Delay(1000);
+	
+	readData=I2C_ByteRead(&hi2c1,EEPROM_ADDRESS, memLocation); 
+
+	BSP_LCD_GLASS_Clear();
+	if (data1 == readData) {
+			BSP_LCD_GLASS_DisplayString((uint8_t*)"r 1 ok");;
+	}else{
+			BSP_LCD_GLASS_DisplayString((uint8_t*)"r 1 X");
+	}	
+	
+	HAL_Delay(1000);
+	
+	readData=I2C_ByteRead(&hi2c1,EEPROM_ADDRESS, memLocation+1); 
+
+	BSP_LCD_GLASS_Clear();
+	if (data2 == readData) {
+			BSP_LCD_GLASS_DisplayString((uint8_t*)"r 2 ok");;
+	}else{
+			BSP_LCD_GLASS_DisplayString((uint8_t *)"r 2 X");
+	}	
+
+	HAL_Delay(1000);
+	
+	BSP_LCD_GLASS_Clear();
+	sprintf(lcd_buffer,"%d",readData);
+	BSP_LCD_GLASS_DisplayString((uint8_t*) lcd_buffer);
+	
+
+  //******************************Testing I2C EEPROM*****************************
