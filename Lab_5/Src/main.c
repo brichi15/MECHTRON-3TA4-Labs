@@ -320,27 +320,25 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {							//buffer button pressed
 		  else if(STATE==CCW)				STATE = CCW_HALF;
 			else if(STATE==CCW_HALF)	STATE = CCW;
 		
-			if(htim3.Init.Period == 8541) htim3.Init.Period = 4270;
-			else htim3.Init.Period = 8541;
-		
-			if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
-			{
-			Error_Handler();
-			}
-			break;
+			if(STATE == CW || STATE == CCW)  htim3.Init.Period *= 2;									//state changed to CW or CCW, double the period						
+			else htim3.Init.Period /= 2;																							//state changed to CW_HALF or CCW_HALF, half the period
+			if (HAL_TIM_Base_Init(&htim3) != HAL_OK) Error_Handler();
+			
+		 break;
 		
 		case GPIO_PIN_2:					//RIGHT
-
 			break;
 		
-		case GPIO_PIN_3:					//UP
-
+		case GPIO_PIN_3:					//UP	
+			if(htim3.Init.Period > 1000) htim3.Init.Period -= 1000;										//speed up, decrease period
+			if (HAL_TIM_Base_Init(&htim3) != HAL_OK) Error_Handler();
 			break;
+		
 		
 		case GPIO_PIN_5:					//DOWN
-			
+			htim3.Init.Period += 1000;																							//decrease speed, increase period
+			if (HAL_TIM_Base_Init(&htim3) != HAL_OK) Error_Handler();
 			break;
-
 	} 
 }
 
