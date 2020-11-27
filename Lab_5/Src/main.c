@@ -352,13 +352,13 @@ void cw_or_ccw_state(void){																//pin order for CW or CCW
 			HAL_GPIO_WritePin(GPIOE,OUT_D_Pin,GPIO_PIN_RESET);
 			break;
 		case 1:
-			HAL_GPIO_WritePin(GPIOE,OUT_A_Pin,GPIO_PIN_SET);				//3
+			HAL_GPIO_WritePin(GPIOE,OUT_A_Pin,GPIO_PIN_SET);				//2
 			HAL_GPIO_WritePin(GPIOE,OUT_B_Pin,GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOE,OUT_C_Pin,GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOE,OUT_D_Pin,GPIO_PIN_SET);
 			break;
 		case 2:
-			HAL_GPIO_WritePin(GPIOE,OUT_A_Pin,GPIO_PIN_RESET);				//2
+			HAL_GPIO_WritePin(GPIOE,OUT_A_Pin,GPIO_PIN_RESET);				//3
 			HAL_GPIO_WritePin(GPIOE,OUT_B_Pin,GPIO_PIN_SET);
 			HAL_GPIO_WritePin(GPIOE,OUT_C_Pin,GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(GPIOE,OUT_D_Pin,GPIO_PIN_SET);
